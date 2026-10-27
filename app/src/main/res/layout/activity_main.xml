@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingStart="56dp"
+    android:paddingTop="32dp"
+    android:paddingEnd="56dp"
+    android:paddingBottom="32dp">
+
+    <!-- Left: what the app is, status, setup actions -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingEnd="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/text"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/tagline"
+                android:textColor="@color/text_dim"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/pin_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/panel_bg"
+                android:orientation="vertical"
+                android:paddingStart="24dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pin_overlay_title"
+                    android:textColor="@color/text_dim"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/pin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/text"
+                    android:textSize="44sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/adb_status"
+                style="@style/Status"
+                android:layout_marginTop="28dp" />
+
+            <TextView
+                android:id="@+id/adb_hint"
+                style="@style/Hint"
+                android:text="@string/adb_hint" />
+
+            <TextView
+                android:id="@+id/a11y_status"
+                style="@style/Status"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/a11y_hint"
+                style="@style/Hint"
+                android:text="@string/a11y_hint" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_dev"
+                    style="@style/TvButton"
+                    android:text="@string/btn_dev" />
+
+                <Button
+                    android:id="@+id/btn_a11y"
+                    style="@style/TvButton"
+                    android:text="@string/btn_a11y_settings" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_forget"
+                style="@style/TvButton"
+                android:layout_marginTop="12dp"
+                android:text="@string/btn_forget" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Right: how to connect -->
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/connect_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="28dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_on_phone"
+            android:textColor="@color/text_dim"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="6dp"
+            android:autoSizeMaxTextSize="34sp"
+            android:autoSizeMinTextSize="16sp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/accent"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/or"
+                android:textColor="@color/text_dim"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/line" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/qr"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/qr_bg"
+            android:contentDescription="@string/qr_description"
+            android:padding="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/scan_qr"
+            android:textColor="@color/text_dim"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>

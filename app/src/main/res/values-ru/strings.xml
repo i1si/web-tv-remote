@@ -1,0 +1,27 @@
+<resources>
+    <string name="tagline">Пульт для этого ТВ в браузере телефона</string>
+    <string name="open_on_phone">Откройте на телефоне или компьютере:</string>
+    <string name="or">или</string>
+    <string name="scan_qr">отсканируйте камерой телефона</string>
+    <string name="no_network">Нет подключения к сети</string>
+    <string name="qr_description">QR-код со ссылкой на пульт</string>
+    <string name="pin_overlay_title">Web TV Remote · PIN для подключения</string>
+    <string name="pin_toast">PIN для Web TV Remote: %1$s</string>
+    <string name="adb_connecting">Управление: подключение к ADB…</string>
+    <string name="adb_waiting">Управление: подтвердите «Разрешить отладку» на ТВ (отметьте «Всегда разрешать»)</string>
+    <string name="adb_connected">Управление: полное, через ADB</string>
+    <string name="adb_connected_slow">Управление: через ADB (режим совместимости)</string>
+    <string name="adb_unavailable">Управление: ограниченное, ADB недоступен</string>
+    <string name="adb_hint">Включите «Отладку по сети» в разделе «Для разработчиков», чтобы работали крестовина и все кнопки, и вернитесь сюда.</string>
+    <string name="a11y_on">Ввод текста: любой язык (спец. возможности включены)</string>
+    <string name="a11y_off">Ввод текста: базовый (спец. возможности выключены)</string>
+    <string name="a11y_hint">Необязательно: включите «Web TV Remote» в спец. возможностях, чтобы печатать на любом языке.</string>
+    <string name="btn_dev">Для разработчиков</string>
+    <string name="btn_a11y_settings">Спец. возможности</string>
+    <string name="btn_forget">Забыть устройства</string>
+    <string name="forgotten">Все подключённые устройства удалены</string>
+    <string name="settings_unavailable">Этот раздел настроек недоступен на устройстве</string>
+    <string name="notification_channel">Сервер пульта</string>
+    <string name="notification_text">Веб-пульт работает</string>
+    <string name="a11y_description">Позволяет Web TV Remote вводить текст в активное поле и выполнять «Назад»/«Домой», когда ADB недоступен. Никакие данные не собираются.</string>
+</resources>

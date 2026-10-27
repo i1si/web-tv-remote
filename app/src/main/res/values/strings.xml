@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name" translatable="false">Web TV Remote</string>
+    <string name="tagline">A remote for this TV in your phone\'s browser</string>
+    <string name="open_on_phone">Open on your phone or computer:</string>
+    <string name="or">or</string>
+    <string name="scan_qr">scan with the phone camera</string>
+    <string name="no_network">No network connection</string>
+    <string name="qr_description">QR code with the remote link</string>
+    <string name="pin_overlay_title">Web TV Remote · pairing PIN</string>
+    <string name="pin_toast">Web TV Remote PIN: %1$s</string>
+    <string name="adb_connecting">Control: connecting to ADB…</string>
+    <string name="adb_waiting">Control: confirm “Allow debugging” on the TV (tick “Always allow”)</string>
+    <string name="adb_connected">Control: full, via ADB</string>
+    <string name="adb_connected_slow">Control: via ADB (compatibility mode)</string>
+    <string name="adb_unavailable">Control: limited, ADB is not available</string>
+    <string name="adb_hint">Turn on “Network debugging” in Developer options for the D-pad and all buttons, then come back here.</string>
+    <string name="a11y_on">Text input: any language (accessibility service on)</string>
+    <string name="a11y_off">Text input: basic (accessibility service off)</string>
+    <string name="a11y_hint">Optional: turn on “Web TV Remote” in Accessibility to type in any language.</string>
+    <string name="btn_dev">Developer options</string>
+    <string name="btn_a11y_settings">Accessibility</string>
+    <string name="btn_forget">Forget paired devices</string>
+    <string name="forgotten">All paired devices removed</string>
+    <string name="settings_unavailable">This settings screen is not available on this device</string>
+    <string name="notification_channel">Remote server</string>
+    <string name="notification_text">Web remote is running</string>
+    <string name="a11y_description">Lets Web TV Remote type text into the focused field and perform Back/Home when ADB is not available. It does not collect any data.</string>
+</resources>
