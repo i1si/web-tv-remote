@@ -117,8 +117,9 @@ svg {
   gap: clamp(14px, 3.2vh, 28px);
 }
 
-.status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; min-height: 20px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.status { max-width: 100%; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; min-height: 20px; }
+.device { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--muted); }
 .dot.good { background: var(--ok); }
 .dot.warn { background: var(--warn); }
 .dot.bad { background: var(--danger); }
@@ -144,6 +145,7 @@ svg {
 }
 
 .row { width: 100%; display: flex; justify-content: space-between; padding: 0 clamp(4px, 4vw, 24px); }
+.row.top { padding: 0 4px; gap: 4px; }
 
 .round {
   width: var(--round);
@@ -206,6 +208,24 @@ svg {
   transition: background .08s, transform .08s;
 }
 .ok:active, .ok.pressed { background: var(--accent); transform: scale(.96); }
+
+.touchpad {
+  width: var(--dpad);
+  height: var(--dpad);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  touch-action: none;
+}
+.touchpad-hint { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
 
 .volume { gap: 12px; align-items: center; }
 .volume.has-slider .pill { flex: 0 0 56px; padding: 0; }
