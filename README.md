@@ -6,7 +6,8 @@ Turn any phone, tablet or computer into a remote for your Android TV box or proj
 install on the phone: open a link in the browser, enter a PIN shown on the TV, and you're done.
 
 <p align="center">
-  <img src="docs/remote.jpeg" width="300" alt="The remote in a phone browser: power, keyboard and settings buttons, D-pad with OK, Back, Home, Menu, volume slider and app shortcuts">
+  <img src="docs/dpad_mode.png" width="300" alt="The web remote in D-pad mode">
+  <img src="docs/touchpad_mode.png" width="300" alt="The web remote in touchpad mode">
 </p>
 
 - Works on Android TV boxes and projectors with Android 11 or newer.
@@ -52,6 +53,13 @@ The phone is remembered, so the PIN is asked only once. To disconnect all phones
 
 The link uses the box's name (from **Settings → Device preferences → About → Device name**), so it
 keeps working even when your router gives the box a new IP address. Bookmark it.
+
+## Swipe control
+
+Tap the round button with the tapping finger icon next to the keyboard button
+to replace the D-pad with a swipe pad. Swipe up, down,
+left or right to press that direction; tap the pad for **OK**. Each swipe sends one press.
+The button then shows a D-pad icon; tap it to return to the D-pad. The browser remembers your choice.
 
 ## Add to the home screen
 

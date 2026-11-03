@@ -9,6 +9,8 @@ const STRINGS = {
     expired: 'The PIN has expired — a new one is shown on the TV', offline: 'TV is not reachable',
     power: 'Power', keyboard: 'Keyboard', settings: 'Settings', up: 'Up', down: 'Down', left: 'Left', right: 'Right', ok: 'OK',
     back: 'Back', home: 'Home', menu: 'Options', volDown: 'Quieter', volUp: 'Louder', volume: 'Volume',
+    swipeMode: 'Open swipe pad', dpadMode: 'Open D-pad', touchpad: 'Swipe pad',
+    swipeHint: 'Swipe to navigate', tapHint: 'Tap for OK',
     keyboardTitle: 'Keyboard', keyboardPlaceholder: 'Type here — the text appears on the TV', clear: 'Clear', backspace: 'Backspace',
     enter: 'Enter', done: 'Done',
     appsTitle: 'Apps on the remote', favorites: 'On the remote', allApps: 'All apps', search: 'Search', noFavorites: 'Nothing yet — add apps below',
@@ -24,6 +26,8 @@ const STRINGS = {
     expired: 'PIN устарел — на ТВ показан новый', offline: 'ТВ недоступен',
     power: 'Выключить', keyboard: 'Клавиатура', settings: 'Настройки', up: 'Вверх', down: 'Вниз', left: 'Влево', right: 'Вправо', ok: 'OK',
     back: 'Назад', home: 'Домой', menu: 'Опции', volDown: 'Тише', volUp: 'Громче', volume: 'Громкость',
+    swipeMode: 'Открыть сенсорное поле', dpadMode: 'Открыть крестовину', touchpad: 'Поле для свайпов',
+    swipeHint: 'Свайп — направление', tapHint: 'Касание — OK',
     keyboardTitle: 'Клавиатура', keyboardPlaceholder: 'Печатайте здесь — текст появится на ТВ', clear: 'Очистить', backspace: 'Стереть',
     enter: 'Ввод', done: 'Готово',
     appsTitle: 'Приложения на пульте', favorites: 'На пульте', allApps: 'Все приложения', search: 'Поиск', noFavorites: 'Пока пусто — добавьте приложения ниже',
@@ -193,6 +197,74 @@ function bindKey(btn) {
 
 document.querySelectorAll('#remote [data-key]').forEach(bindKey);
 
+// ---------- swipe control ----------
+
+(function bindTouchpad() {
+  const toggle = $('#btn-swipe-mode');
+  const pad = $('#touchpad');
+  const SWIPE_DISTANCE = 24;
+  const TAP_SLOP = 10;
+  let gesture = null;
+  let swipeMode = false;
+  try { swipeMode = localStorage.getItem('wtr.swipeMode') === 'true'; } catch (_) { /* storage unavailable */ }
+
+  const cancel = () => {
+    const pointerId = gesture && gesture.id;
+    gesture = null;
+    if (pointerId !== null && pad.hasPointerCapture(pointerId)) pad.releasePointerCapture(pointerId);
+  };
+  const renderMode = () => {
+    cancel();
+    $('#dpad').hidden = swipeMode;
+    pad.hidden = !swipeMode;
+    toggle.querySelector('use').setAttribute('href', swipeMode ? '#i-dpad' : '#i-touch');
+    toggle.dataset.i18nLabel = swipeMode ? 'dpadMode' : 'swipeMode';
+    toggle.setAttribute('aria-label', t(toggle.dataset.i18nLabel));
+    toggle.title = t(toggle.dataset.i18nLabel);
+  };
+  toggle.addEventListener('click', () => {
+    swipeMode = !swipeMode;
+    renderMode();
+    vibrate();
+    try { localStorage.setItem('wtr.swipeMode', String(swipeMode)); } catch (_) { /* storage unavailable */ }
+  });
+
+  pad.addEventListener('pointerdown', (e) => {
+    if (!e.isPrimary) { cancel(); return; }
+    if (e.button !== 0 || gesture || pad.hidden) return;
+    e.preventDefault();
+    pad.setPointerCapture(e.pointerId);
+    gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: 0 };
+  });
+  pad.addEventListener('pointermove', (e) => {
+    if (!gesture || gesture.id !== e.pointerId) return;
+    gesture.moved = Math.max(gesture.moved, Math.hypot(e.clientX - gesture.x, e.clientY - gesture.y));
+  });
+  pad.addEventListener('pointerup', (e) => {
+    if (!gesture || gesture.id !== e.pointerId) return;
+    const dx = e.clientX - gesture.x;
+    const dy = e.clientY - gesture.y;
+    const moved = Math.max(gesture.moved, Math.hypot(dx, dy));
+    cancel();
+    let name;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) >= SWIPE_DISTANCE) {
+      name = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up');
+    } else if (moved <= TAP_SLOP) {
+      name = 'ok';
+    }
+    if (name) { vibrate(); key(name); }
+  });
+  ['pointercancel', 'lostpointercapture'].forEach((event) => pad.addEventListener(event, (e) => {
+    if (gesture && gesture.id === e.pointerId) cancel();
+  }));
+  // Native keyboard and accessibility clicks have no pointer gesture.
+  pad.addEventListener('click', (e) => { if (e.detail === 0) { vibrate(); key('ok'); } });
+  pad.addEventListener('contextmenu', (e) => e.preventDefault());
+  window.addEventListener('blur', cancel);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) cancel(); });
+  renderMode();
+}());
+
 // Physical keyboard on a computer works as a remote too.
 const KEYMAP = {
   ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', Enter: 'ok',
@@ -200,6 +272,7 @@ const KEYMAP = {
 };
 document.addEventListener('keydown', (e) => {
   if ($('#remote').hidden || openSheet || e.target.tagName === 'INPUT' || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'Enter' && e.target.closest('button:not([data-key])')) return;
   const name = KEYMAP[e.key];
   if (!name) return;
   e.preventDefault();
